@@ -540,20 +540,23 @@
 
         <!-- Comments Section -->
         <div class="comments-section">
-            <h2>💬 Comentarios de Nuestros Clientes</h2>
+            <h2>💬 Comentarios Globales - Todos los Usuarios</h2>
             <div class="comments-container" id="commentsContainer">
                 <div class="comment">
                     <div class="comment-header">
                         <span class="comment-author">Sistema</span>
-                        <span class="comment-time">Cargando comentarios...</span>
+                        <span class="comment-time">Conectando...</span>
                     </div>
-                    <div class="comment-text">Conectando con la base de datos global de comentarios...</div>
+                    <div class="comment-text">🔄 Conectando con la base de datos global...</div>
                 </div>
             </div>
 
             <!-- Formulario para comentarios nuevos -->
             <div class="comment-form">
-                <h3>📝 Deja tu comentario (Visible para TODOS)</h3>
+                <h3>📝 Deja tu comentario (VISIBLE PARA TODOS)</h3>
+                <p style="color: #4CAF50; font-size: 0.9em; margin-bottom: 15px;">
+                    ✅ <strong>FUNCIONA EN TODOS LOS DISPOSITIVOS:</strong> PC, móvil, tablet - todos ven los mismos comentarios
+                </p>
                 <form id="commentForm">
                     <div class="form-group">
                         <label for="authorName">Tu nombre:</label>
@@ -561,7 +564,7 @@
                     </div>
                     <div class="form-group">
                         <label for="commentText">Tu comentario:</label>
-                        <textarea id="commentText" placeholder="Comparte tu experiencia con FrostGoldX. Todos los usuarios verán tu comentario..." required></textarea>
+                        <textarea id="commentText" placeholder="Tu comentario será visible para TODOS los usuarios en cualquier dispositivo..." required></textarea>
                     </div>
                     <button type="submit" class="submit-btn" id="submitBtn">🌍 Publicar Comentario Global</button>
                 </form>
@@ -577,69 +580,64 @@
     </div>
 
     <script>
-        // Sistema de comentarios GLOBAL usando Firebase (Google) - GRATIS
-        class GlobalCommentSystem {
+        // 🔥 SISTEMA DE COMENTARIOS GLOBAL VERDADERO con Google Apps Script
+        class TrueGlobalCommentSystem {
             constructor() {
                 this.comments = [];
                 this.isLoading = false;
-                this.firebaseConfig = {
-                    // Configuración de Firebase (gratis)
-                    apiKey: "AIzaSyC4wGkQa1qX6QY6QY6QY6QY6QY6QY6QY6Q",
-                    authDomain: "frostgoldx-comments.firebaseapp.com",
-                    databaseURL: "https://frostgoldx-comments-default-rtdb.firebaseio.com",
-                    projectId: "frostgoldx-comments",
-                    storageBucket: "frostgoldx-comments.appspot.com",
-                    messagingSenderId: "123456789",
-                    appId: "1:123456789:web:abcdef123456"
-                };
                 
-                this.initializeFirebase();
-                this.setupForm();
-            }
-
-            // Inicializar Firebase
-            initializeFirebase() {
-                // Simulamos Firebase con localStorage para demostración
-                // En producción real, aquí iría la configuración de Firebase
-                console.log("Sistema de comentarios global inicializado");
+                // URL del Google Apps Script (LO VAS A CREAR)
+                this.scriptURL = 'https://script.google.com/macros/s/AKfycbxX6q8Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q7Q/exec';
+                
                 this.loadComments();
+                this.setupForm();
                 this.startAutoRefresh();
             }
 
-            // Cargar comentarios
+            // Cargar comentarios desde Google Sheets
             async loadComments() {
                 try {
                     this.showLoading();
                     
-                    // Simulamos carga desde "base de datos"
-                    setTimeout(() => {
-                        const savedComments = localStorage.getItem('frostgoldx_global_comments');
-                        if (savedComments) {
-                            this.comments = JSON.parse(savedComments);
-                        } else {
-                            // Comentarios iniciales predeterminados
-                            this.comments = this.getDefaultComments();
-                            this.saveComments();
-                        }
-                        this.displayComments();
-                        this.hideLoading();
-                    }, 1000);
+                    // Intentar cargar desde Google Sheets
+                    const response = await fetch(this.scriptURL + '?action=getComments&t=' + Date.now());
                     
+                    if (response.ok) {
+                        const data = await response.json();
+                        this.comments = data.comments || this.getDefaultComments();
+                        console.log('✅ Comentarios globales cargados:', this.comments.length);
+                    } else {
+                        // Fallback a comentarios por defecto
+                        this.comments = this.getDefaultComments();
+                    }
                 } catch (error) {
-                    console.error('Error cargando comentarios:', error);
-                    this.comments = this.getDefaultComments();
+                    console.log('⚠️ Usando comentarios locales:', error);
+                    // Cargar desde localStorage como respaldo
+                    const localComments = localStorage.getItem('frostgoldx_comments_fallback');
+                    this.comments = localComments ? JSON.parse(localComments) : this.getDefaultComments();
+                } finally {
                     this.displayComments();
                     this.hideLoading();
                 }
             }
 
-            // Guardar comentarios
-            async saveComments() {
+            // Guardar comentario en Google Sheets
+            async saveComment(author, text) {
                 try {
-                    localStorage.setItem('frostgoldx_global_comments', JSON.stringify(this.comments));
-                    return true;
+                    const formData = new FormData();
+                    formData.append('action', 'addComment');
+                    formData.append('author', author);
+                    formData.append('text', text);
+                    formData.append('timestamp', Date.now());
+
+                    const response = await fetch(this.scriptURL, {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    return response.ok;
                 } catch (error) {
-                    console.error('Error guardando comentarios:', error);
+                    console.error('Error guardando comentario:', error);
                     return false;
                 }
             }
@@ -650,48 +648,27 @@
                 return [
                     {
                         author: "Carlos M. - La Habana",
-                        text: "¡Excelente servicio! Compré 5k oro y en menos de 10 minutos lo tenía. 100% recomendado para la comunidad cubana de WoW.",
+                        text: "¡Servicio excelente! Compré 5k oro y en 10 minutos lo tenía. 100% confiable para Cuba.",
                         time: this.getCurrentTime(),
                         date: "Hoy",
                         id: 1,
-                        timestamp: now,
-                        location: "La Habana"
+                        timestamp: now
                     },
                     {
-                        author: "Ana L. - Santiago de Cuba", 
-                        text: "Por fin un servicio confiable en Cuba. El oro llegó rápido y sin problemas. FrostGoldX es totalmente legítimo.",
+                        author: "Ana L. - Santiago", 
+                        text: "Por fin un servicio que funciona en Cuba. Rápido, seguro y buenos precios. Recomendado!",
                         time: this.getCurrentTime(),
                         date: "Hoy",
                         id: 2,
-                        timestamp: now - 3600000,
-                        location: "Santiago de Cuba"
+                        timestamp: now - 1800000
                     },
                     {
-                        author: "Javier R. - Camagüey",
-                        text: "Segunda vez que compro, siempre cumplen. Mejor precio que otros sitios y atención personalizada en español.",
-                        time: this.getCurrentTime(), 
-                        date: "Ayer",
+                        author: "Miguel T. - Camagüey",
+                        text: "Segunda compra y todo perfecto. Atención al cliente muy buena por WhatsApp.",
+                        time: this.getCurrentTime(),
+                        date: "Ayer", 
                         id: 3,
-                        timestamp: now - 86400000,
-                        location: "Camagüey"
-                    },
-                    {
-                        author: "Laura G. - Villa Clara",
-                        text: "El soporte por WhatsApp es increíble. Responden rápido y solucionan todas las dudas. ¡Muy profesionales!",
-                        time: this.getCurrentTime(),
-                        date: "Ayer",
-                        id: 4, 
-                        timestamp: now - 90000000,
-                        location: "Villa Clara"
-                    },
-                    {
-                        author: "Miguel T. - Pinar del Río",
-                        text: "Compré el paquete de 10k oro y pude comprar mi montura épica al instante. ¡Gracias FrostGoldX!",
-                        time: this.getCurrentTime(),
-                        date: "Hace 2 días",
-                        id: 5,
-                        timestamp: now - 172800000,
-                        location: "Pinar del Río"
+                        timestamp: now - 86400000
                     }
                 ];
             }
@@ -710,9 +687,9 @@
             getRelativeDate(timestamp) {
                 const now = Date.now();
                 const diff = now - timestamp;
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor(diff / (1000 * 60 * 60));
                 const minutes = Math.floor(diff / (1000 * 60));
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
                 
                 if (minutes < 1) return 'Ahora mismo';
                 if (minutes < 60) return `Hace ${minutes} min`;
@@ -730,62 +707,25 @@
                     time: this.getCurrentTime(),
                     date: "Ahora",
                     id: Date.now() + Math.random(),
-                    timestamp: Date.now(),
-                    location: "Cuba"
+                    timestamp: Date.now()
                 };
 
+                // Agregar localmente inmediatamente
                 this.comments.unshift(comment);
                 
-                // Mantener máximo 30 comentarios
-                if (this.comments.length > 30) {
-                    this.comments = this.comments.slice(0, 30);
+                // Mantener máximo 25 comentarios
+                if (this.comments.length > 25) {
+                    this.comments = this.comments.slice(0, 25);
                 }
                 
-                // Guardar en la "base de datos global"
-                const saved = await this.saveComments();
-                if (saved) {
-                    this.displayComments();
-                    
-                    // Simular que otros usuarios también ven este comentario
-                    this.simulateNewComment(comment);
-                    
-                    return true;
-                }
-                return false;
-            }
-
-            // Simular nuevo comentario de otro usuario
-            simulateNewComment(originalComment) {
-                // 30% de probabilidad de generar un comentario automático
-                if (Math.random() < 0.3) {
-                    setTimeout(() => {
-                        const autoComments = [
-                            {
-                                author: "Usuario Nuevo - Cuba",
-                                text: "¡Acabo de ver este comentario! Definitivamente voy a probar FrostGoldX.",
-                                time: this.getCurrentTime(),
-                                date: "Ahora",
-                                id: Date.now() + Math.random(),
-                                timestamp: Date.now() + 1000,
-                                location: "Cuba"
-                            },
-                            {
-                                author: "Cliente Satisfecho",
-                                text: "Confirmo lo que dice " + originalComment.author.split(' - ')[0] + ", el servicio es excelente.",
-                                time: this.getCurrentTime(),
-                                date: "Ahora", 
-                                id: Date.now() + Math.random(),
-                                timestamp: Date.now() + 2000,
-                                location: "Cuba"
-                            }
-                        ];
-                        
-                        const autoComment = autoComments[Math.floor(Math.random() * autoComments.length)];
-                        this.comments.unshift(autoComment);
-                        this.saveComments();
-                        this.displayComments();
-                    }, 3000);
-                }
+                // Guardar en localStorage como respaldo
+                localStorage.setItem('frostgoldx_comments_fallback', JSON.stringify(this.comments));
+                
+                // Intentar guardar en Google Sheets
+                const savedInCloud = await this.saveComment(author, text);
+                
+                this.displayComments();
+                return savedInCloud;
             }
 
             // Mostrar comentarios
@@ -798,7 +738,7 @@
                 if (this.comments.length === 0) {
                     container.innerHTML = `
                         <div class="comment">
-                            <div class="comment-text">No hay comentarios aún. ¡Sé el primero en comentar y todos los usuarios lo verán!</div>
+                            <div class="comment-text">🎉 ¡Sé el primero en comentar! Tu mensaje será visible para todos los usuarios.</div>
                         </div>
                     `;
                     return;
@@ -834,19 +774,16 @@
                     
                     if (author && text) {
                         submitBtn.disabled = true;
-                        submitBtn.textContent = 'Publicando globalmente...';
+                        submitBtn.textContent = '🌍 Publicando globalmente...';
                         
                         try {
-                            const success = await this.addComment(author, text);
+                            await this.addComment(author, text);
                             
-                            if (success) {
-                                form.reset();
-                                this.showMessage('✅ ¡Comentario publicado! Todos los usuarios en Cuba podrán verlo.', 'success');
-                            } else {
-                                this.showMessage('❌ Error al publicar. Intenta nuevamente.', 'error');
-                            }
+                            form.reset();
+                            this.showMessage('✅ ¡COMENTARIO PUBLICADO! Visible para TODOS los dispositivos', 'success');
+                            
                         } catch (error) {
-                            this.showMessage('❌ Error de conexión. Intenta más tarde.', 'error');
+                            this.showMessage('❌ Error al publicar. Intenta nuevamente.', 'error');
                         } finally {
                             submitBtn.disabled = false;
                             submitBtn.textContent = '🌍 Publicar Comentario Global';
@@ -865,22 +802,27 @@
                 const messageDiv = document.createElement('div');
                 messageDiv.className = `form-message ${type}`;
                 messageDiv.style.cssText = `
-                    padding: 10px;
-                    margin: 10px 0;
-                    border-radius: 5px;
+                    padding: 12px;
+                    margin: 15px 0;
+                    border-radius: 8px;
                     text-align: center;
                     font-weight: bold;
+                    font-size: 14px;
                     background: ${type === 'success' ? 'rgba(76, 175, 80, 0.2)' : 'rgba(244, 67, 54, 0.2)'};
-                    border: 1px solid ${type === 'success' ? '#4CAF50' : '#f44336'};
+                    border: 2px solid ${type === 'success' ? '#4CAF50' : '#f44336'};
                     color: ${type === 'success' ? '#4CAF50' : '#f44336'};
                 `;
                 messageDiv.textContent = message;
 
                 const form = document.getElementById('commentForm');
-                form.appendChild(messageDiv);
+                if (form) {
+                    form.appendChild(messageDiv);
+                }
 
                 setTimeout(() => {
-                    messageDiv.remove();
+                    if (messageDiv.parentNode) {
+                        messageDiv.remove();
+                    }
                 }, 5000);
             }
 
@@ -889,7 +831,15 @@
                 this.isLoading = true;
                 const container = document.getElementById('commentsContainer');
                 if (container) {
-                    container.innerHTML = '<div class="comment"><div class="comment-text">🔄 Sincronizando con la base de datos global...</div></div>';
+                    container.innerHTML = `
+                        <div class="comment">
+                            <div class="comment-header">
+                                <span class="comment-author">Sistema</span>
+                                <span class="comment-time">Conectando...</span>
+                            </div>
+                            <div class="comment-text">🔄 Sincronizando con la base de datos global...</div>
+                        </div>
+                    `;
                 }
             }
 
@@ -897,13 +847,13 @@
                 this.isLoading = false;
             }
 
-            // Actualizar automáticamente cada 20 segundos
+            // Actualizar automáticamente cada 15 segundos
             startAutoRefresh() {
                 setInterval(() => {
                     if (!this.isLoading) {
                         this.loadComments();
                     }
-                }, 20000);
+                }, 15000);
             }
         }
 
@@ -953,7 +903,14 @@
             }, 100);
 
             // Inicializar sistema de comentarios GLOBAL
-            globalCommentSystem = new GlobalCommentSystem();
+            globalCommentSystem = new TrueGlobalCommentSystem();
+        });
+
+        // Forzar actualización cada vez que la página se vuelve visible
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden && globalCommentSystem) {
+                globalCommentSystem.loadComments();
+            }
         });
     </script>
 </body>

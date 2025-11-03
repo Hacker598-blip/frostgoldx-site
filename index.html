@@ -3,7 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Venta de Oro - UltimoWoW 3.3.5a</title>
+    
+    <!-- SEO META TAGS -->
+    <title>Venta de Oro WotLK 3.3.5a - UltimoWoW | FrostGoldX - Compra Oro Seguro</title>
+    <meta name="description" content="Compra oro seguro para World of Warcraft Wrath of the Lich King 3.3.5a en servidor UltimoWoW. Entrega inmediata, precios en CUP, métodos de pago cubanos. Garantía 100%.">
+    <meta name="keywords" content="wow wotlk, oro wotlk, ultimowow, comprar oro, world of warcraft, wrath of the lich king, 3.3.5a, cuba, cup, venta oro, frostgoldx">
+    <meta name="author" content="FrostGoldX">
+    <meta name="robots" content="index, follow">
+    
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="Venta de Oro WotLK 3.3.5a - UltimoWoW | FrostGoldX">
+    <meta property="og:description" content="Compra oro seguro para World of Warcraft en servidor UltimoWoW. Entrega inmediata, precios en CUP.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hacker598-blip.github.io/frostgoldx-site/">
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏰</text></svg>">
+    
     <style>
         * {
             margin: 0;
@@ -37,6 +53,12 @@
             text-align: center;
             margin-bottom: 30px;
             box-shadow: 0 0 20px rgba(77, 148, 255, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 20px rgba(77, 148, 255, 0.3); }
+            to { box-shadow: 0 0 30px rgba(77, 148, 255, 0.6); }
         }
 
         .header h1 {
@@ -216,6 +238,28 @@
             color: #888;
         }
 
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4d94ff;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-tabs {
@@ -229,6 +273,10 @@
             .package.popular {
                 transform: none;
             }
+            
+            .header h1 {
+                font-size: 2em;
+            }
         }
     </style>
 </head>
@@ -236,8 +284,8 @@
     <div class="container">
         <!-- Header -->
         <div class="header">
-            <h1>VENTA DE ORO WOTLK 3.3.5a</h1>
-            <div class="server-info">Servidor: UltimoWoW - Realm: logon.ultimoWoW.com</div>
+            <h1>🏰 Venta de Oro WotLK 3.3.5a - UltimoWoW</h1>
+            <div class="server-info">World of Warcraft: Wrath of the Lich King - Realm: logon.ultimoWoW.com</div>
         </div>
 
         <!-- Navigation Tabs -->
@@ -248,10 +296,16 @@
             <div class="nav-tab" onclick="showSection('contacto')">📞 Contacto</div>
         </div>
 
+        <!-- Loading -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Redirigiendo a WhatsApp...</p>
+        </div>
+
         <!-- Comprar Oro Section -->
         <div id="comprar" class="content-section active">
-            <h2>💰 Paquetes de Oro Disponibles</h2>
-            <p>Selecciona el paquete que mejor se adapte a tus necesidades</p>
+            <h2>💰 Comprar Oro WotLK 3.3.5a - Mejores Precios</h2>
+            <p>Compra oro seguro para World of Warcraft en el servidor UltimoWoW. Entrega inmediata garantizada.</p>
             
             <div class="packages">
                 <div class="package">
@@ -289,37 +343,53 @@
 
         <!-- Métodos de Pago Section -->
         <div id="metodos" class="content-section">
-            <h2>💳 Métodos de Pago Aceptados</h2>
+            <h2>💳 Métodos de Pago Aceptados - Cuba</h2>
             <div class="features">
                 <div class="feature">
                     <i>📱</i>
                     <h3>Saldo Móvil</h3>
-                    <p>Transacciones seguras</p>
+                    <p>Transferencia directa a móvil</p>
                 </div>
                 
                 <div class="feature">
                     <i>🎁</i>
                     <h3>MiTransfer</h3>
-                    <p>Transferencia BPA/Bandec ----> MiTransfer</p>
+                    <p>Transferencia BPA/Bandec</p>
+                </div>
+                
+                <div class="feature">
+                    <i>💸</i>
+                    <h3>Transfermovil</h3>
+                    <p>Transferencia entre bancos</p>
+                </div>
+                
+                <div class="feature">
+                    <i>🔐</i>
+                    <h3>Seguro</h3>
+                    <p>Transacciones 100% protegidas</p>
                 </div>
             </div>
         </div>
 
         <!-- Garantía Section -->
         <div id="garantia" class="content-section">
-            <h2>🛡️ Nuestra Garantía</h2>
+            <h2>🛡️ Garantía FrostGoldX - 100% Confiable</h2>
             <div class="features">
                 <div class="feature">
                     <i>⚡</i>
                     <h3>Entrega Inmediata</h3>
-                    <p>Entrega en menos de 15 minutos</p>
+                    <p>Menos de 15 minutos después del pago</p>
                 </div>
                 <div class="feature">
                     <i>🔒</i>
                     <h3>100% Seguro</h3>
                     <p>Métodos seguros y discretos</p>
                 </div>
-                
+                <div class="feature">
+                    <i>🔄</i>
+                    <h3>Reembolso</h3>
+                    <p>Garantía de satisfacción 24/7</p>
+                </div>
                 <div class="feature">
                     <i>👥</i>
                     <h3>Soporte 24/7</h3>
@@ -330,22 +400,22 @@
 
         <!-- Contacto Section -->
         <div id="contacto" class="content-section">
-            <h2>📞 Contacto y Soporte</h2>
+            <h2>📞 Contacto y Soporte FrostGoldX</h2>
             <div class="features">
                 <div class="feature">
                     <i>📧</i>
-                    <h3>Email</h3>
+                    <h3>Email Directo</h3>
                     <p>rodriguezvazquezj09@gmail.com</p>
                 </div>
                 <div class="feature">
                     <i>💬</i>
-                    <h3>WhatsApp, SMS</h3>
+                    <h3>WhatsApp/SMS</h3>
                     <p>+53 56252842</p>
                 </div>
                 <div class="feature">
                     <i>🎮</i>
                     <h3>En el Juego</h3>
-                    <p>Contacta a "Talokoj"</p>
+                    <p>Contacta a "Talokoj" - UltimoWoW</p>
                 </div>
                 <div class="feature">
                     <i>🕒</i>
@@ -357,12 +427,14 @@
 
         <!-- Footer -->
         <div class="footer">
-            <p>© 2024 UltimoWoW - World of Warcraft Wrath of the Lich King 3.3.5a</p>
+            <p>© 2024 FrostGoldX - World of Warcraft Wrath of the Lich King 3.3.5a - UltimoWoW</p>
+            <p>Servicio especializado para la comunidad cubana de World of Warcraft</p>
             <p>Este servicio no está afiliado con Blizzard Entertainment</p>
         </div>
     </div>
 
     <script>
+        // Navegación entre secciones
         function showSection(sectionId) {
             // Ocultar todas las secciones
             document.querySelectorAll('.content-section').forEach(section => {
@@ -386,8 +458,11 @@
             button.addEventListener('click', function() {
                 const goldAmount = this.getAttribute('data-gold');
                 
+                // Mostrar loading
+                document.getElementById('loading').style.display = 'block';
+                
                 // Mensaje predefinido para WhatsApp
-                const mensaje = `Deseo comprar ${goldAmount} para el servidor de Ultimowow`;
+                const mensaje = `¡Hola! Deseo comprar ${goldAmount} para el servidor UltimoWoW - WotLK 3.3.5a`;
                 
                 // Codificar el mensaje para URL
                 const mensajeCodificado = encodeURIComponent(mensaje);
@@ -398,9 +473,29 @@
                 // Crear enlace de WhatsApp
                 const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
                 
-                // Redirigir a WhatsApp
-                window.open(urlWhatsApp, '_blank');
+                // Redirigir a WhatsApp después de breve delay para ver loading
+                setTimeout(() => {
+                    window.open(urlWhatsApp, '_blank');
+                    document.getElementById('loading').style.display = 'none';
+                }, 1000);
             });
+        });
+
+        // Efecto de carga inicial
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // Tracking de clics para analytics (simple)
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('buy-btn')) {
+                console.log('Click en comprar:', e.target.getAttribute('data-gold'));
+            }
         });
     </script>
 </body>

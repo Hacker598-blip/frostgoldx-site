@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://hacker598-blip.github.io/frostgoldx-site/sitemap.xml

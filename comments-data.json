@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "author": "Carlos M. - La Habana",
+      "text": "¡Excelente servicio! Compré 5k oro y en 10 minutos lo tenía. 100% confiable para Cuba.",
+      "time": "14:30",
+      "date": "Hoy",
+      "id": 1,
+      "timestamp": 1705339800000
+    },
+    {
+      "author": "Ana L. - Santiago",
+      "text": "Por fin un servicio que funciona en Cuba. Rápido, seguro y buenos precios. Recomendado!",
+      "time": "13:45", 
+      "date": "Hoy",
+      "id": 2,
+      "timestamp": 1705337100000
+    }
+  ],
+  "lastUpdate": 1705339800000
+}
